@@ -1,0 +1,59 @@
+{
+  "menu": [
+    {
+      "route": "dashboard",
+      "name": "dashboard",
+      "type": "link",
+      "icon": "dashboard"
+    },
+    {
+      "route": "estimate",
+      "name": "estimate",
+      "type": "sub",
+      "icon": "whatshot",
+      "children": [
+        {
+          "route": "simple-estimate",
+          "name": "simple_estimate",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "category",
+      "name": "category",
+      "type": "sub",
+      "icon": "category",
+      "children": [
+        {
+        "route": "view-category",
+        "name": "view_category",
+        "type": "link"
+        },
+        {
+          "route": "create-category",
+          "name": "create_category",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "user",
+      "name": "user",
+      "type": "sub",
+      "icon": "supervisor_account",
+      "children": [
+        {
+          "route": "view-user",
+          "name": "view_user",
+          "type": "link"
+        },
+        {
+          "route": "create-user",
+          "name": "create_user",
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}

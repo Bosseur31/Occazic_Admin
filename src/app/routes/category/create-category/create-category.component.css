@@ -1,0 +1,61 @@
+.remove {
+  margin-bottom: 12px;
+  margin-left: auto;
+}
+
+.mat-card {
+  margin-bottom: 10px;
+}
+
+.cat_form {
+  width: 70%;
+  margin-top: 2%;
+  margin-right: auto;
+  margin-bottom: 2%;
+  margin-left: auto;
+}
+
+.cat_input {
+  width: 23%;
+  margin-right: 2%;
+}
+
+.input_form {
+  width: 80%;
+  margin-top: 10%;
+  margin-right: auto;
+  margin-bottom: 2%;
+  margin-left: auto;
+}
+
+.input_card {
+  width: 400px;
+}
+
+.input_input {
+  width: 100%;
+}
+
+.input_checkbox {
+  margin-bottom: 5%;
+}
+
+.button_add {
+  margin-right: 1%;
+}
+
+.select_form {
+  width: 80%;
+  margin-top: 5%;
+  margin-right: auto;
+  margin-bottom: 2%;
+  margin-left: auto;
+}
+
+.select_card {
+  width: 350px;
+}
+
+.select_input {
+  width: 100%;
+}

@@ -1,0 +1,131 @@
+<page-header></page-header>
+
+
+<mat-card>
+
+  <form [formGroup]="CatForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="categories">
+      <div *ngFor="let category of category.controls; let catIndex=index">
+        <div [formGroupName]="catIndex">
+          <div fxFlex="100">
+            <mat-card>
+              <mat-card-header class="header">
+                <mat-card-title>Categories</mat-card-title>
+                <button class="remove" mat-raised-button color="warn" (click)="removeCategory(catIndex)">Supprimer
+                </button>
+              </mat-card-header>
+              <mat-divider></mat-divider>
+
+              <div class="cat_form">
+                <mat-form-field class="cat_input" appearance="fill">
+                  <mat-label>Nom de votre catégorie :</mat-label>
+                  <input matInput placeholder="Nom" type="text" formControlName="name">
+                </mat-form-field>
+
+                <mat-form-field class="cat_input" appearance="fill">
+                  <mat-label>Fonction a appliquer pour cette estimation :</mat-label>
+                  <input matInput placeholder="Fonction" type="text" formControlName="function">
+                </mat-form-field>
+
+                <mat-form-field class="cat_input" appearance="fill">
+                  <mat-label>Marge en % du prix estimé :</mat-label>
+                  <input matInput placeholder="Marge" type="number" formControlName="marge">
+                </mat-form-field>
+
+                <mat-form-field class="cat_input" appearance="fill">
+                  <mat-label>Image de la catégorie :</mat-label>
+                  <ngx-mat-file-input (change)="onSelectFile($event, catIndex)" [accept]="'.jpg, .jpeg, .png'"
+                                      placeholder="Votre image doit etre en 250px par 250px"></ngx-mat-file-input>
+                  <mat-icon matSuffix>folder</mat-icon>
+                </mat-form-field>
+
+
+              </div>
+
+              <div formArrayName="inputs">
+                <div fxLayout="row wrap" fxLayoutGap="25px grid" fxLayoutAlign="center">
+                  <div fxLayoutAlign="stretch"
+                       *ngFor="let input of categoryInput(catIndex).controls; let inputIndex=index">
+                    <div [formGroupName]="inputIndex">
+
+                      <mat-card class="input_card">
+                        <mat-card-header>
+                          <mat-card-title>Variable</mat-card-title>
+                          <button class="remove" mat-raised-button color="warn"
+                                  (click)="removeCategoryInput(catIndex,inputIndex)">
+                            Supprimer
+                          </button>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <div class="input_form">
+                          <mat-form-field class="input_input" appearance="fill">
+                            <mat-label>Nom de votre variable :</mat-label>
+                            <input matInput placeholder="Nom" type="text" formControlName="name">
+                          </mat-form-field>
+
+                          <section class="input_checkbox">
+                            <mat-checkbox formControlName="array" class="example-margin">Variable a option multiple</mat-checkbox>
+                          </section>
+
+
+                          <div formArrayName="array_values">
+                            <div fxLayout="row wrap" fxLayoutGap="5px grid" fxLayoutAlign="center">
+                              <div fxLayoutAlign="stretch"
+                                   *ngFor="let array_value of inputSelect(catIndex, inputIndex).controls; let selectIndex=index">
+                                <div [formGroupName]="selectIndex">
+                                  <mat-card class="select_card">
+                                    <mat-card-header>
+                                      <mat-card-title>Option de la Sélection</mat-card-title>
+                                      <mat-icon role="img"
+                                                (click)="removeInputSelect(catIndex, inputIndex, selectIndex)"
+                                                class="remove mat-icon notranslate icon-36 material-icons" color="warn"
+                                                aria-hidden="true" data-mat-icon-type="font">clear
+                                      </mat-icon>
+                                    </mat-card-header>
+                                    <mat-divider></mat-divider>
+                                    <div class="select_form">
+                                      <mat-form-field class="select_input" appearance="fill">
+                                        <mat-label>Nom de l'option :</mat-label>
+                                        <input matInput placeholder="Nom" type="text" formControlName="name">
+                                      </mat-form-field>
+
+                                      <mat-form-field class="select_input" appearance="fill">
+                                        <mat-label>Valeur de l'option :</mat-label>
+                                        <input matInput placeholder="Valeur" type="number" formControlName="value">
+                                      </mat-form-field>
+                                    </div>
+                                  </mat-card>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div style="text-align:center;">
+                          <ng-template [ngIf]="this.inputArray(catIndex, inputIndex)?.value">
+                            <button class="button_add" mat-raised-button color="primary" type="button"
+                                    (click)="addInputSelect(catIndex, inputIndex)">Ajouter Option a la Sélection
+                            </button>
+                          </ng-template>
+                          </div>
+                        </div>
+                      </mat-card>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="button_add" mat-raised-button color="primary" type="button"
+                      (click)="addCategoryInput(catIndex)">Ajouter Variable
+              </button>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+      <button mat-raised-button class="button_add" color="primary" type="button" (click)="addCategory()">Ajouter Categorie
+      </button>
+      <button mat-raised-button color="accent" type="submit">Valider</button>
+    </div>
+
+  </form>
+
+</mat-card>
+
+

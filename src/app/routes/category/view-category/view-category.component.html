@@ -1,0 +1,28 @@
+<page-header></page-header>
+
+<mtx-grid [data]="list"
+          [columns]="columns"
+          [loading]="isLoading"
+          [columnResizable]="columnResizable"
+          [multiSelectable]="multiSelectable"
+          [rowSelectable]="rowSelectable"
+          [hideRowSelectionCheckbox]="hideRowSelectionCheckbox"
+          [rowHover]="rowHover"
+          [rowStriped]="rowStriped"
+          [showToolbar]="showToolbar"
+          [toolbarTitle]="'Catégorie'"
+          [columnHideable]="columnHideable"
+          [columnMovable]="columnMovable"
+          [expandable]="expandable"
+          [expansionTemplate]="expansionTpl"
+          [pageOnFront]="showPaginator"
+          [showPaginator]="showPaginator"
+          [pageSizeOptions]="[20,50,100]"
+          [pageIndex]="0"
+          [pageSize]="20">
+          //(sortChange)="changeSort($event)"
+          //(selectionChange)="changeSelect($event)">
+</mtx-grid>
+<ng-template #expansionTpl let-row>
+  {{row.name}}
+</ng-template>

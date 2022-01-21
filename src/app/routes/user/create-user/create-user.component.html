@@ -1,0 +1,35 @@
+<page-header></page-header>
+
+
+<mat-card>
+  <form [formGroup]="UserForm" (ngSubmit)="onSubmit()">
+    <div>
+      <div fxFlex="100">
+        <mat-card>
+          <mat-card-header class="header">
+            <mat-card-title>Categories</mat-card-title>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+
+          <div class="user_form">
+            <mat-form-field class="user_input" appearance="fill">
+              <mat-label>Nom de l'Utilisateur :</mat-label>
+              <input matInput placeholder="Utilisateur" type="text" formControlName="username" required>
+            </mat-form-field>
+
+            <mat-form-field class="user_input" appearance="fill">
+              <mat-label>Mot de passe :</mat-label>
+              <input matInput placeholder="Mot de passe" type="password" formControlName="password" required>
+            </mat-form-field>
+          </div>
+          <div class="user_submit">
+          <button mat-raised-button color="accent" type="submit">Valider</button>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </form>
+
+</mat-card>
+
+
