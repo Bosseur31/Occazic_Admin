@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>Variables de {{this.data.name}}</h2>
+<mat-divider></mat-divider>
+
+<form [formGroup]="EditForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <div class="var_total">
+      <div formArrayName="variables">
+        <div fxLayout="column" fxLayoutGap="5px grid" fxLayoutAlign="space-around">
+          <div fxLayoutAlign="stretch"
+               *ngFor="let variable of variable.controls; let index=index">
+            <div [formGroupName]="index">
+
+              <div class="var_form">
+                <div *ngIf="variable.value.array; then selectBlock else inputBlock"></div>
+
+                <ng-template #inputBlock>
+                  <mat-form-field class="var_input" appearance="fill">
+                    <mat-label>Nom de la variable :</mat-label>
+                    <input matInput placeholder="Nom Variable" type="text" formControlName="name">
+                  </mat-form-field>
+
+                  <div class="icon_del">
+                    <mat-icon role="img" class="mat-icon notranslate material-icons" color="warn" aria-hidden="true"
+                              data-mat-icon-type="font" (click)="delVal(index)" matTooltip="Supprimer cette variable">
+                      delete
+                    </mat-icon>
+                  </div>
+                </ng-template>
+
+                <ng-template #selectBlock>
+                  <mat-form-field class="var_select" appearance="fill">
+                    <mat-label>{{variable.value.name}}</mat-label>
+                    <mat-select>
+                      <ng-container *ngFor="let val_array of valFuncArray">
+                        <mat-option *ngIf="variable.value.id === val_array.val_func_id" [value]="val_array.value">
+                          {{val_array.name}}
+                        </mat-option>
+                      </ng-container>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <div class="icon_del">
+                    <mat-icon role="img" class="mat-icon notranslate material-icons" color="warn" aria-hidden="true"
+                              data-mat-icon-type="font" (click)="delVal(index)" matTooltip="Supprimer cette selection">
+                      delete
+                    </mat-icon>
+                  </div>
+                  <div class="icon_edit">
+                    <mat-icon role="img" class="mat-icon notranslate material-icons" color="primary" aria-hidden="true"
+                              data-mat-icon-type="font" (click)="editSelect(variable.value.id, variable.value.name)"
+                              matTooltip="Modifier cette selection">
+                      edit
+                    </mat-icon>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close>Close</button>
+    <button type="button" mat-raised-button [matMenuTriggerFor]="add" matTooltip="Ajouter une variable a la catégorie">Ajouter
+      <mat-icon role="img" class="mat-icon notranslate material-icons icon_add" aria-hidden="true"
+                data-mat-icon-type="font">add_circle_outline
+      </mat-icon>
+    </button>
+    <button mat-raised-button color="primary" type="submit" mat-dialog-close cdkFocusInitial>Submit</button>
+  </mat-dialog-actions>
+
+  <mat-menu #add="matMenu">
+    <button mat-menu-item (click)="addVal(false)">Input</button>
+    <button mat-menu-item (click)="addVal(true)">Select</button>
+  </mat-menu>
+
+</form>
+

@@ -151,6 +151,8 @@
     "function": "Fonction",
     "marge": "Marge en %",
     "picture": "Image",
+    "variable": "Variables",
+    "see": "Voir les variables de cette catégorie",
     "operation": "Opération",
     "edit": "Editer",
     "delete": "Supprimer",

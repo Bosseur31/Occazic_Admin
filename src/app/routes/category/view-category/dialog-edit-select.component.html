@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>Select {{this.selectName}}</h2>
+<mat-divider></mat-divider>
+
+<form [formGroup]="EditForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field class="sel_input_name" appearance="fill">
+      <mat-label>Nom du Select :</mat-label>
+      <input matInput placeholder="Nom du Select" type="text" formControlName="name">
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <div class="select_total">
+    <div formArrayName="options">
+
+      <div fxLayout="column" fxLayoutGap="5px grid" fxLayoutAlign="space-around">
+        <div fxLayoutAlign="stretch"
+             *ngFor="let option of option.controls; let index=index">
+          <div [formGroupName]="index">
+
+            <div class="select_form">
+
+              <mat-form-field class="sel_input" appearance="fill">
+                <mat-label>Nom de la variable :</mat-label>
+                <input matInput placeholder="Nom Option" type="text" formControlName="name">
+              </mat-form-field>
+              <mat-form-field class="sel_input" appearance="fill">
+                <mat-label>Valeur de la variable :</mat-label>
+                <input matInput placeholder="Valeur Option" type="number" formControlName="value">
+              </mat-form-field>
+
+              <div class="icon_del">
+                <mat-icon role="img" class="mat-icon notranslate material-icons" color="warn" aria-hidden="true"
+                          data-mat-icon-type="font" (click)="delOpt(index)" matTooltip="Supprimer cette option">
+                  delete
+                </mat-icon>
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-raised-button mat-dialog-close>Close</button>
+    <button type="button" mat-raised-button (click)="addOption()" matTooltip="Ajouter une option au select">Ajouter
+      <mat-icon role="img" class="mat-icon notranslate material-icons icon_add" aria-hidden="true"
+                data-mat-icon-type="font">add_circle_outline
+      </mat-icon>
+    </button>
+    <button mat-raised-button color="primary" type="submit" mat-dialog-close cdkFocusInitial>Submit</button>
+  </mat-dialog-actions>
+
+</form>
+
+

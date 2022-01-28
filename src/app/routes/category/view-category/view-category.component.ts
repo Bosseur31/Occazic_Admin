@@ -2,7 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {MtxGridColumn} from "@ng-matero/extensions/grid";
 import {TranslateService} from "@ngx-translate/core";
 import {MtxDialog} from "@ng-matero/extensions/dialog";
+import { MatDialog } from '@angular/material/dialog';
 import {CategoryDataService} from "../data.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {UserDataService} from "../../user/data.service";
+import {Router} from "@angular/router";
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+import {DialogEditVariableComponent} from "./dialog-variable-category.component";
+import {DialogEditFormComponent} from "./dialog-edit-category.component";
 
 @Component({
   selector: 'app-category-view-category',
@@ -43,6 +51,20 @@ export class CategoryViewCategoryComponent implements OnInit {
       minWidth: 100,
     },
     {
+      header: this.translate.stream('view_category.variable'),
+      field: 'variable',
+      type: "button",
+      minWidth: 50,
+      buttons: [
+        {
+          color: 'primary',
+          icon: 'visibility',
+          tooltip: this.translate.stream('view_category.see'),
+          click: record => this.seeVar(record),
+        },
+      ],
+    },
+    {
       header: this.translate.stream('view_category.operation'),
       field: 'operation',
       minWidth: 120,
@@ -60,6 +82,12 @@ export class CategoryViewCategoryComponent implements OnInit {
           popCloseText: this.translate.stream('view_category.close'),
           popOkText: this.translate.stream('view_category.ok'),
           click: record => this.delete(record),
+        },
+        {
+          color: 'primary',
+          icon: 'edit',
+          tooltip: this.translate.stream('view_category.edit'),
+          click: record => this.edit(record),
         },
       ],
     },
@@ -79,7 +107,7 @@ export class CategoryViewCategoryComponent implements OnInit {
   expandable = false;
   columnResizable = false;
 
-  constructor(private translate: TranslateService, private dataSrv: CategoryDataService, public dialog: MtxDialog) {
+  constructor( private translate: TranslateService, private dataSrv: CategoryDataService, public dialog: MtxDialog, public dialog1: MatDialog) {
 
   }
 
@@ -107,7 +135,7 @@ export class CategoryViewCategoryComponent implements OnInit {
           this.dialog.alert(`La suppression de ${value.name} a échoué ! Erreur:` + error);
         }
       });
-    this.dataSrv.delVal(value._id)
+    this.dataSrv.delValWithCatId(value._id)
       .subscribe({
         next: data => {
           this.dialog.alert(`Toute les valeurs de fonction de ${value.name}, ont été supprimé !`);
@@ -119,6 +147,28 @@ export class CategoryViewCategoryComponent implements OnInit {
     this.loadData();
   }
 
+  edit(value: any){
+    let dialogRef = this.dialog1.open(DialogEditFormComponent,
+      {data: { id: value._id, name: value.name }}
+      );
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadData();
+    });
+  }
+
+  seeVar(value: any){
+    let dialogRef = this.dialog1.open(DialogEditVariableComponent,
+      {
+        width: '15%',
+        data: { id: value._id, name: value.name }
+      }
+    );
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadData();
+    });
+
+  }
+
   changeSelect(e: any) {
     console.log(e);
   }
@@ -128,4 +178,5 @@ export class CategoryViewCategoryComponent implements OnInit {
   }
 
 }
+
 

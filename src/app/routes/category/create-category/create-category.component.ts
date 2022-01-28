@@ -50,7 +50,6 @@ export class CategoryCreateCategoryComponent implements OnInit {
     }
   }
 
-
   newCategory(): FormGroup {
     return this._formbuilder.group({
       name: '',
@@ -176,7 +175,7 @@ export class CategoryCreateCategoryComponent implements OnInit {
   }
 
   async createSelect(name: string, value: number, valId: string) {
-    const data = await this.dataSrv.postSelect(name, value, valId).toPromise()
+    const data = await this.dataSrv.postValFuncArray(name, value, valId).toPromise()
     console.log('Création Valeur Select :')
     console.log(data)
 
