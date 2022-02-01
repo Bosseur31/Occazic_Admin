@@ -19,24 +19,35 @@
               <div class="cat_form">
                 <mat-form-field class="cat_input" appearance="fill">
                   <mat-label>Nom de votre catégorie :</mat-label>
-                  <input matInput placeholder="Nom" type="text" formControlName="name">
+                  <input matInput placeholder="Nom" type="text" formControlName="name" required>
                 </mat-form-field>
 
                 <mat-form-field class="cat_input" appearance="fill">
                   <mat-label>Fonction a appliquer pour cette estimation :</mat-label>
-                  <input matInput placeholder="Fonction" type="text" formControlName="function">
+                  <input matInput placeholder="Fonction" type="text" formControlName="function" required>
                 </mat-form-field>
 
                 <mat-form-field class="cat_input" appearance="fill">
                   <mat-label>Marge en % du prix estimé :</mat-label>
-                  <input matInput placeholder="Marge" type="number" formControlName="marge">
+                  <input matInput placeholder="Marge" type="number" formControlName="marge" required>
                 </mat-form-field>
 
                 <mat-form-field class="cat_input" appearance="fill">
                   <mat-label>Image de la catégorie :</mat-label>
                   <ngx-mat-file-input (change)="onSelectFile($event, catIndex)" [accept]="'.jpg, .jpeg, .png'"
-                                      placeholder="Votre image doit etre en 250px par 250px"></ngx-mat-file-input>
+                                      placeholder="Votre image doit etre en 250px par 250px" required></ngx-mat-file-input>
                   <mat-icon matSuffix>folder</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field class="cat_input" appearance="fill">
+                  <mat-label>Catégorie Racine :</mat-label>
+                  <mat-select formControlName="root_category" required>
+                    <ng-container *ngFor="let rootCat of rootCatLists">
+                      <mat-option [value]="rootCat._id">
+                        {{rootCat.name}}
+                      </mat-option>
+                    </ng-container>
+                  </mat-select>
                 </mat-form-field>
               </div>
 
@@ -58,7 +69,7 @@
                         <div class="input_form">
                           <mat-form-field class="input_input" appearance="fill">
                             <mat-label>Nom de votre variable :</mat-label>
-                            <input matInput placeholder="Nom" type="text" formControlName="name">
+                            <input matInput placeholder="Nom" type="text" formControlName="name" required>
                           </mat-form-field>
 
                           <section class="input_checkbox">
@@ -84,12 +95,12 @@
                                     <div class="select_form">
                                       <mat-form-field class="select_input" appearance="fill">
                                         <mat-label>Nom de l'option :</mat-label>
-                                        <input matInput placeholder="Nom" type="text" formControlName="name">
+                                        <input matInput placeholder="Nom" type="text" formControlName="name" required>
                                       </mat-form-field>
 
                                       <mat-form-field class="select_input" appearance="fill">
                                         <mat-label>Valeur de l'option :</mat-label>
-                                        <input matInput placeholder="Valeur" type="number" formControlName="value">
+                                        <input matInput placeholder="Valeur" type="number" formControlName="value" required>
                                       </mat-form-field>
                                     </div>
                                   </mat-card>

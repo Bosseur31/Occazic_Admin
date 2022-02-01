@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Editer</h2>
+<h2 mat-dialog-title>Editer Sous-Categorie {{this.subCatName}}</h2>
 
 <form [formGroup]="EditForm" (ngSubmit)="onSubmit()">
 
@@ -9,33 +9,12 @@
       <input matInput placeholder="Nom" type="text" formControlName="name">
     </mat-form-field>
 
-    <mat-form-field class="demo-full-width">
-      <mat-label>Fonction :</mat-label>
-      <input matInput placeholder="Fonction" type="text" formControlName="function">
-    </mat-form-field>
-
-    <mat-form-field class="demo-full-width">
-      <mat-label>Marge en % :</mat-label>
-      <input matInput placeholder="Marge" type="number" formControlName="marge">
-    </mat-form-field>
-
     <!-- <mat-form-field class="demo-full-width">
       <mat-label>Image :</mat-label>
       <ngx-mat-file-input (change)="onSelectFile($event)" [accept]="'.jpg, .jpeg, .png'"
                           placeholder="Votre image doit etre en 250px par 250px"></ngx-mat-file-input>
       <mat-icon matSuffix>folder</mat-icon>
     </mat-form-field> -->
-
-    <mat-form-field class="demo-full-width">
-      <mat-label>Catégorie Racine :</mat-label>
-      <mat-select formControlName="root_category">
-        <ng-container *ngFor="let rootCat of rootCatLists">
-          <mat-option [value]="rootCat._id">
-            {{rootCat.name}}
-          </mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
 
   </mat-dialog-content>
 

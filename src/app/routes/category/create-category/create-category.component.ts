@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatFormFieldControl} from '@angular/material/form-field';
-import {CategoryDataService} from "../data.service";
+import {CategoryDataService, Sub_Cat} from "../data.service";
 import { Router } from '@angular/router';
 
 
@@ -20,6 +20,8 @@ export class CategoryCreateCategoryComponent implements OnInit {
   catLists: any;
   valLists: any;
 
+  rootCatLists: Sub_Cat[] | undefined = [];
+
   // @ts-ignore
   catId: string;
   // @ts-ignore
@@ -36,7 +38,21 @@ export class CategoryCreateCategoryComponent implements OnInit {
     this.CatForm = this._formbuilder.group({
       categories: this._formbuilder.array([])
     });
-    this.addCategory()
+    this.addCategory();
+    this.rootCatData();
+
+  }
+
+  rootCatData(){
+    this.dataSrv.getSubCatData()
+      .toPromise()
+      .then(data => {
+        this.rootCatLists = data;
+        console.log('Get Root Category with success')
+      })
+      .catch(err => {
+        console.log('Not get Root Category error : ' + err);
+      });
   }
 
   onSelectFile(event: any, catIndex: number) {
@@ -56,6 +72,7 @@ export class CategoryCreateCategoryComponent implements OnInit {
       function: '',
       marge: '',
       file: '',
+      root_category: '',
       inputs: this._formbuilder.array([])
     });
   }
@@ -135,7 +152,7 @@ export class CategoryCreateCategoryComponent implements OnInit {
       formData.append('marge', cat_value.marge);
       //TODO: Understand why the file object is in an other object (cat_value.file / cat_value.file.file).
       formData.append('image', cat_value.file.file);
-      console.log(cat_value.file.file);
+      formData.append('sub_category', cat_value.root_category);
       await this.createCat(formData);
       console.log('Catégorie Id apres fonction :')
       console.log(this.catId)
@@ -160,9 +177,7 @@ export class CategoryCreateCategoryComponent implements OnInit {
     this.catLists = data;
     this.catId = this.catLists._id;
     console.log('Fin de la fonction Cat')
-
   }
-
 
   async createVal(name: string, array: boolean, catId: string) {
     const data = await this.dataSrv.postVal(name, array, catId).toPromise();

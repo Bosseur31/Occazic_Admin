@@ -1,8 +1,10 @@
 {
   "menu": {
+
     "category": "Catégorie",
     "category.view_category": "Voir Categories",
     "category.create_category": "Créer Categories",
+    "category.root_category": "Catégories Racines",
     "user": "Utilisateur",
     "user.view_user": "Voir Utilisateur",
     "user.create_user": "Créer Utilisateur",
@@ -153,6 +155,18 @@
     "picture": "Image",
     "variable": "Variables",
     "see": "Voir les variables de cette catégorie",
+    "root_category": "Catégorie Racine",
+    "operation": "Opération",
+    "edit": "Editer",
+    "delete": "Supprimer",
+    "confirm_delete": "Confirmer Suppression?",
+    "ok": "Valider",
+    "close": "Fermer"
+  },
+  "view_root_category": {
+    "id": "ID",
+    "name": "Nom",
+    "picture": "Image",
     "operation": "Opération",
     "edit": "Editer",
     "delete": "Supprimer",

@@ -65,6 +65,12 @@ export class CategoryViewCategoryComponent implements OnInit {
       ],
     },
     {
+      header: this.translate.stream('view_category.root_category'),
+      field: 'sub_category.name',
+      sortable: true,
+      minWidth: 100,
+    },
+    {
       header: this.translate.stream('view_category.operation'),
       field: 'operation',
       minWidth: 120,

@@ -26,6 +26,11 @@
       "icon": "category",
       "children": [
         {
+          "route": "sub-category",
+          "name": "root_category",
+          "type": "link"
+        },
+        {
         "route": "view-category",
         "name": "view_category",
         "type": "link"
