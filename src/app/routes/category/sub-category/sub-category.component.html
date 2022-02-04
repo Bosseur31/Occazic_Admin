@@ -1,0 +1,53 @@
+<page-header></page-header>
+
+<mtx-grid [data]="list"
+          [columns]="columns"
+          [loading]="isLoading"
+          [columnResizable]="columnResizable"
+          [multiSelectable]="multiSelectable"
+          [rowSelectable]="rowSelectable"
+          [hideRowSelectionCheckbox]="hideRowSelectionCheckbox"
+          [rowHover]="rowHover"
+          [rowStriped]="rowStriped"
+          [showToolbar]="showToolbar"
+          [toolbarTitle]="'Catégories Racines'"
+          [columnHideable]="columnHideable"
+          [columnMovable]="columnMovable"
+          [expandable]="expandable"
+          [expansionTemplate]="expansionTpl"
+          [pageOnFront]="showPaginator"
+          [showPaginator]="showPaginator"
+          [pageSizeOptions]="[5,10,20,50,100]"
+          [pageIndex]="0"
+          [pageSize]="10">
+</mtx-grid>
+<ng-template #expansionTpl let-row>
+  {{row.name}}
+</ng-template>
+
+<mat-card>
+  <mat-card-header class="header">
+    <mat-card-title>Creer Categorie Racine</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <form class="cat_form" [formGroup]="EditForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-form-field class="cat_input" appearance="fill">
+        <mat-label>Nom :</mat-label>
+        <input matInput placeholder="Nom" type="text" formControlName="name" required>
+      </mat-form-field>
+
+      <mat-form-field class="cat_input" appearance="fill">
+        <mat-label>Image :</mat-label>
+        <ngx-mat-file-input (change)="onSelectFile($event)" [accept]="'.jpg, .jpeg, .png'"
+                            placeholder="Votre image doit etre en 250px par 250px" required></ngx-mat-file-input>
+        <mat-icon matSuffix>folder</mat-icon>
+      </mat-form-field>
+    </div>
+    <div align="center">
+      <button class="submit_button" mat-raised-button color="accent" type="submit">Valider</button>
+    </div>
+  </form>
+
+</mat-card>
