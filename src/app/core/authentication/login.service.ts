@@ -16,7 +16,7 @@ export class LoginService {
   constructor(protected http: HttpClient, private _token: TokenService) {}
 
   login(username: string, password: string, rememberMe = false) {
-    return this.http.post<Token | any>('http://localhost:3000/user/login', { username: username, password: password });
+    return this.http.post<Token | any>('http://occasion_api:3000/user/login', { username: username, password: password });
   }
 
   refresh(params: any) {
@@ -28,7 +28,7 @@ export class LoginService {
   }
 
   me(user_id: string) {
-    return this.http.get<User>('http://localhost:3000/user/' + user_id, {headers: this.headers});
+    return this.http.get<User>('http://occasion_api:3000/user/' + user_id, {headers: this.headers});
   }
 
   menu() {
