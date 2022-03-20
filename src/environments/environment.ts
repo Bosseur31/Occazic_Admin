@@ -3,8 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   baseUrl: '',
+  apiURL: 'http://admin-occasion.aymeric-mai.fr',
   useHash: false,
 };
 

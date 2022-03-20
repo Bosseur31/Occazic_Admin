@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Token, User } from './interface';
 import {TokenService} from "@core";
@@ -16,7 +17,7 @@ export class LoginService {
   constructor(protected http: HttpClient, private _token: TokenService) {}
 
   login(username: string, password: string, rememberMe = false) {
-    return this.http.post<Token | any>('http://occasion.aymeric-mai.fr:3000/user/login', { username: username, password: password });
+    return this.http.post<Token | any>(environment.apiURL + '/user/login', { username: username, password: password });
   }
 
   refresh(params: any) {
@@ -28,7 +29,7 @@ export class LoginService {
   }
 
   me(user_id: string) {
-    return this.http.get<User>('http://occasion_api:3000/user/' + user_id, {headers: this.headers});
+    return this.http.get<User>(environment.apiURL + '/user/' + user_id, {headers: this.headers});
   }
 
   menu() {
