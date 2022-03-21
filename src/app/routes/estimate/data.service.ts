@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenService} from "@core";
+import {environment} from "environments/environment";
 
 export interface Estim {
   _id: string;
@@ -26,9 +27,9 @@ export class EstimateDataService {
 
   estimList: Estim[] = [];
 
-  private _estimUrl = 'http://localhost:3000/price_estim';
-  private _calculUrl = 'http://localhost:3000/calcul';
-  private _inputUrl = 'http://localhost:3000/input_func/price_estimate';
+  private _estimUrl = environment.apiURL + '/price_estim';
+  private _calculUrl = environment.apiURL + '/calcul';
+  private _inputUrl = environment.apiURL + '/input_func/price_estimate';
   private headers = new HttpHeaders({'Authorization':this._token.getBearerToken()});
 
   constructor(public _httpClient: HttpClient, private _token: TokenService) {

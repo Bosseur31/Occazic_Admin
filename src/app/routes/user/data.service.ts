@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenService} from "@core";
-
+import {environment} from "environments/environment";
 
 export interface User {
   _id: string;
@@ -15,8 +15,8 @@ export class UserDataService {
 
   userList: User[] = [];
 
-  private _userUrl = 'http://localhost:3000/user';
-  private _createUserUrl = 'http://localhost:3000/user/signup';
+  private _userUrl = environment.apiURL + '/user';
+  private _createUserUrl = environment.apiURL + '/user/signup';
   private headers = new HttpHeaders({'Authorization':this._token.getBearerToken()});
 
   constructor(public _httpClient: HttpClient, private _token: TokenService) {

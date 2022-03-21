@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TokenService} from "@core";
+import {environment} from "environments/environment";
 
 
 export interface Cat {
@@ -48,10 +49,10 @@ export class CategoryDataService {
   valList: Val[] = [];
   subCatList: Sub_Cat[] = [];
 
-  private _catUrl = 'http://localhost:3000/category';
-  private _rootCatUrl = 'http://localhost:3000/sub-category';
-  private _valUrl = 'http://localhost:3000/val_func';
-  private _selectUrl = 'http://localhost:3000/array_val';
+  private _catUrl = environment.apiURL + '/category';
+  private _rootCatUrl = environment.apiURL + '/sub-category';
+  private _valUrl = environment.apiURL + '/val_func';
+  private _selectUrl = environment.apiURL + '/array_val';
   private headers = new HttpHeaders({'Authorization':this._token.getBearerToken()});
 
   constructor(public _httpClient: HttpClient, private _token: TokenService) {}

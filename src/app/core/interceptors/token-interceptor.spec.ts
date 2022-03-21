@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { TokenInterceptor } from './token-interceptor';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+// @ts-ignore
 import { STATUS } from 'angular-in-memory-web-api';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';

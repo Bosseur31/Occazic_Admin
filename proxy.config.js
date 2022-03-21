@@ -1,8 +1,10 @@
 // https://angular.io/guide/build#proxying-to-a-backend-server
+import {environment} from "./src/environments/environment";
+
 
 const PROXY_CONFIG = {
   '/images/*': {
-    target: 'http://localhost:3000',
+    target: environment.apiURL,
     changeOrigin: true,
     secure: false,
     logLevel: 'debug',
