@@ -27,11 +27,6 @@ export class UserViewUserComponent implements OnInit {
       minWidth: 100,
     },
     {
-      header: this.translate.stream('view_user.password'),
-      field: 'password',
-      minWidth: 100,
-    },
-    {
       header: this.translate.stream('view_user.operation'),
       field: 'operation',
       minWidth: 120,
