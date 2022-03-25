@@ -27,9 +27,9 @@ export class AuthService {
     return this.tokenService.valid();
   }
 
-  login(email: string, password: string, rememberMe = false) {
-    return this.loginService.login(email, password, rememberMe).pipe(
-      tap(token => this.tokenService.set(token, true)),
+  login(username: string, password: string, rememberMe = false) {
+    return this.loginService.login(username, password, rememberMe).pipe(
+      tap(access_token => this.tokenService.set(access_token, true)),
       map(() => this.check()),
     );
   }
