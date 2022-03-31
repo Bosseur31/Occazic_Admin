@@ -1,8 +1,8 @@
 {
   "menu": {
     "category": "Category",
-    "category.view_category": "See Category",
-    "category.edit_category": "Edit Category",
+    "category.view_category": "See Sub-Category",
+    "category.edit_category": "Edit Sub-Category",
     "estimate": "Estimate",
     "estimate.simple_estimate": "Simple Estimate",
     "dashboard": "Dashboard",

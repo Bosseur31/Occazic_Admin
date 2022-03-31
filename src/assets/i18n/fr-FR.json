@@ -2,8 +2,8 @@
   "menu": {
 
     "category": "Catégorie",
-    "category.view_category": "Voir Categories",
-    "category.create_category": "Créer Categories",
+    "category.view_category": "Voir Sous-Catégories",
+    "category.create_category": "Créer Sous-Catégories",
     "category.root_category": "Catégories Racines",
     "user": "Utilisateur",
     "user.view_user": "Voir Utilisateur",
@@ -100,8 +100,8 @@
   },
   "user": {
     "profile": "profile",
-    "settings": "settings",
-    "logout": "logout"
+    "settings": "paramétres",
+    "logout": "déconnexion"
   },
   "login": {
     "title": "Bienvenu",
@@ -122,13 +122,13 @@
     "register": "Create account"
   },
   "paginator": {
-    "items_per_page_label": "Items per page:",
-    "next_page_label": "Next page",
-    "previous_page_label": "Previous page",
-    "first_page_label": "First page",
-    "last_page_label": "Last page",
-    "range_page_label_1": "no record",
-    "range_page_label_2": "{{startIndex}} - {{endIndex}} of {{length}}"
+    "items_per_page_label": "Élément par page:",
+    "next_page_label": "Page suivante",
+    "previous_page_label": "Page précédente",
+    "first_page_label": "Première page",
+    "last_page_label": "Dernière page",
+    "range_page_label_1": "Aucun élément",
+    "range_page_label_2": "{{startIndex}} - {{endIndex}} de {{length}}"
   },
   "simple_estimate": {
     "id": "ID",
