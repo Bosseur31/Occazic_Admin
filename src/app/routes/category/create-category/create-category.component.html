@@ -10,7 +10,7 @@
           <div fxFlex="100">
             <mat-card>
               <mat-card-header class="header">
-                <mat-card-title>Categories</mat-card-title>
+                <mat-card-title>Sous-Catégories</mat-card-title>
                 <button class="remove" mat-raised-button color="warn" (click)="removeCategory(catIndex)">Supprimer
                 </button>
               </mat-card-header>
@@ -18,7 +18,7 @@
 
               <div class="cat_form">
                 <mat-form-field class="cat_input" appearance="fill">
-                  <mat-label>Nom de votre catégorie :</mat-label>
+                  <mat-label>Nom de votre sous-catégorie :</mat-label>
                   <input matInput placeholder="Nom" type="text" formControlName="name" required>
                 </mat-form-field>
 
@@ -33,7 +33,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="cat_input" appearance="fill">
-                  <mat-label>Image de la catégorie :</mat-label>
+                  <mat-label>Image de la sous-catégorie :</mat-label>
                   <ngx-mat-file-input (change)="onSelectFile($event, catIndex)" [accept]="'.jpg, .jpeg, .png'"
                                       placeholder="Votre image doit etre en 250px par 250px" required></ngx-mat-file-input>
                   <mat-icon matSuffix>folder</mat-icon>
