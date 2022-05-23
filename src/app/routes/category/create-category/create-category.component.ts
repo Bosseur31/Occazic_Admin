@@ -81,6 +81,7 @@ export class CategoryCreateCategoryComponent implements OnInit {
     return this._formbuilder.group({
       name: '',
       array: false,
+      text: false,
       array_values: this._formbuilder.array([])
     });
   }
@@ -157,7 +158,7 @@ export class CategoryCreateCategoryComponent implements OnInit {
       console.log('Catégorie Id apres fonction :')
       console.log(this.catId)
       for (let val_value of cat_value.inputs) {
-        await this.createVal(val_value.name, val_value.array, this.catId);
+        await this.createVal(val_value.name, val_value.array, val_value.text, this.catId);
         console.log('Valeur Id apres fonction:')
         console.log(this.valId)
         for (let sel_value of val_value.array_values) {
@@ -179,8 +180,8 @@ export class CategoryCreateCategoryComponent implements OnInit {
     console.log('Fin de la fonction Cat')
   }
 
-  async createVal(name: string, array: boolean, catId: string) {
-    const data = await this.dataSrv.postVal(name, array, catId).toPromise();
+  async createVal(name: string, array: boolean, text: boolean, catId: string) {
+    const data = await this.dataSrv.postVal(name, array, text, catId).toPromise();
     console.log('Création Valeur Fonction :')
     console.log(data)
     this.valLists = data;

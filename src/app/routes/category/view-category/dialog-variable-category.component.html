@@ -72,8 +72,9 @@
   </mat-dialog-actions>
 
   <mat-menu #add="matMenu">
-    <button mat-menu-item (click)="addVal(false)">Input</button>
-    <button mat-menu-item (click)="addVal(true)">Select</button>
+    <button mat-menu-item (click)="addVal(false, false)">Valeur</button>
+    <button mat-menu-item (click)="addVal(true, false)">Selection</button>
+    <button mat-menu-item (click)="addVal(false, true)">Texte</button>
   </mat-menu>
 
 </form>

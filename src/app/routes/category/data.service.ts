@@ -22,6 +22,7 @@ export interface Val {
   _id: string;
   name: string;
   array: boolean;
+  text: boolean;
   category: string;
   timestamps: number;
 }
@@ -151,8 +152,8 @@ export class CategoryDataService {
     return this._httpClient.delete(this._valUrl + '/category/' + id, {headers: this.headers})
   }
 
-  postVal(name: string, array: boolean, catId: string) {
-    const body = {name: name, array: array, catID: catId};
+  postVal(name: string, array: boolean, text: boolean, catId: string) {
+    const body = {name: name, array: array, text: text, catID: catId};
     return this._httpClient.post<Val[]>(this._valUrl, body, {headers: this.headers})
   }
 

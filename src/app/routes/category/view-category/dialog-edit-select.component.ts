@@ -123,7 +123,7 @@ export class DialogEditSelectComponent {
   async onSubmit(){
 
     if(this.selectId == 'new'){
-      await this.dataSrv.postVal(this.EditForm.value.name, true, this.catId).toPromise()
+      await this.dataSrv.postVal(this.EditForm.value.name, true, false, this.catId).toPromise()
         .then(data => { console.log('Create select with success'); this.valFunc = data; })
         .catch(err => { console.log ('error : ' + err);});
       this.selectId = this.valFunc._id

@@ -80,7 +80,7 @@ export class DialogEditVariableComponent {
 
     // @ts-ignore
     for (let valFunc of this.valFunc) {
-      this.variable.push(this.newVariable(valFunc.name, valFunc.array, valFunc._id))
+      this.variable.push(this.newVariable(valFunc.name, valFunc.array, valFunc.text, valFunc._id))
     }
   }
 
@@ -119,10 +119,11 @@ export class DialogEditVariableComponent {
     return this.EditForm.get('variables') as FormArray;
   }
 
-  newVariable(name: string, array: boolean, id: string): FormGroup {
+  newVariable(name: string, array: boolean, text: boolean, id: string): FormGroup {
     return this._formbuilder.group({
       name: name,
       array: array,
+      text: text,
       id: id
     });
   }
@@ -131,10 +132,11 @@ export class DialogEditVariableComponent {
     this.variable.removeAt(Index);
   }
 
+  // Delete input
   delVal(index: number) {
     let valId = this.EditForm.value.variables[index].id
     let valName = this.EditForm.value.variables[index].name
-    let valArray = this.EditForm.value.variables[index].array
+
     if (valId != 'new') {
       this.dataSrv.delVal(valId)
         .subscribe({
@@ -174,16 +176,15 @@ export class DialogEditVariableComponent {
 
   }
 
-  addVal(value: boolean) {
-    this.variable.push(this.newVariable('', value, 'new'))
+  addVal(array: boolean, text: boolean) {
+    this.variable.push(this.newVariable('', array, text, 'new'))
   }
 
   onSubmit() {
     for (let valFunc of this.EditForm.value.variables) {
       // If Val Fun is new, create new val Func else modify Val Func
       if (valFunc.id === 'new') {
-        let array = false;
-        this.dataSrv.postVal(valFunc.name, array, this.catId).toPromise()
+        this.dataSrv.postVal(valFunc.name, valFunc.array, valFunc.text, this.catId).toPromise()
           .then(data => {
             console.log('Create new variable input with success');
           })
