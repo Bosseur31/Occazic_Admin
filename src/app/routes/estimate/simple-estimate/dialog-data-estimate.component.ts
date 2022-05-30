@@ -5,7 +5,6 @@ import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {TranslateService} from "@ngx-translate/core";
 import {MtxDialog} from "@ng-matero/extensions/dialog";
 import {MatSnackBar} from '@angular/material/snack-bar';
-
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {AfterViewInit, ViewChild} from '@angular/core';
 import {MatSort, Sort} from '@angular/material/sort';
