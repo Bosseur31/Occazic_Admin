@@ -165,7 +165,7 @@ export class CategoryViewCategoryComponent implements OnInit {
   seeVar(value: any){
     let dialogRef = this.dialog1.open(DialogEditVariableComponent,
       {
-        width: '15%',
+        width: '25%',
         data: { id: value._id, name: value.name }
       }
     );
