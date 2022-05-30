@@ -15,27 +15,44 @@ export interface Estim {
     function: string,
     marge: number
   ];
-  input_func_id: string;
   calcul_id: [
     propose_price: number
   ];
   timestamps: number;
 }
 
+export interface Input {
+  price_estim_id: string;
+  val_func_id: [
+    _id: string,
+    name: string,
+    array: boolean,
+    text: boolean,
+    category: string
+  ]
+  value: string;
+}
+
 @Injectable()
 export class EstimateDataService {
 
   estimList: Estim[] = [];
+  inputList: Input[] = [];
 
   private _estimUrl = environment.apiURL + '/price_estim';
   private _calculUrl = environment.apiURL + '/calcul';
-  private _inputUrl = environment.apiURL + '/input_func/price_estimate';
+  private _inputUrl = environment.apiURL + '/input_func/price_estim';
   private headers = new HttpHeaders({'Authorization':this._token.getBearerToken()});
 
   constructor(public _httpClient: HttpClient, private _token: TokenService) {
   }
+
   getData(){
     return this._httpClient.get<Estim[]>(this._estimUrl, {headers: this.headers})
+  }
+
+  getInputFuncDataWithPriceEstimId(id: string){
+    return this._httpClient.get<Input[]>(this._inputUrl + '/' + id, {headers: this.headers})
   }
 
   delData(id: string){
