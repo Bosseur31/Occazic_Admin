@@ -136,6 +136,8 @@
     "mail": "Email",
     "mobile": "Téléphone",
     "name_category": "Nom Catégorie",
+    "data_user": "Données Utilisateur",
+    "see": "Voir les données entrée par l'utilisateur",
     "function": "Fonction Appliqué",
     "marge": "Marge Appliqué en %",
     "price": "Prix Proposé",

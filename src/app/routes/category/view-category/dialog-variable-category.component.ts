@@ -6,6 +6,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {MtxDialog} from "@ng-matero/extensions/dialog";
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {DialogEditSelectComponent} from "./dialog-edit-select.component";
+import { ViewportScroller } from "@angular/common";
 
 @Component({
   selector: 'dialog-edit-variable',
@@ -18,11 +19,12 @@ import {DialogEditSelectComponent} from "./dialog-edit-select.component";
       .var_form {
         display: flex;
         align-items: baseline;
-        justify-content: flex-start;
       }
 
       .var_total {
         margin-top: 1.34375em;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .icon_add {
@@ -42,12 +44,11 @@ import {DialogEditSelectComponent} from "./dialog-edit-select.component";
 
       .var_input {
         width: 100%;
-        margin-left: 15%;
       }
 
       .var_select {
         width: 100%;
-        margin-left: 14%;
+        margin-left: 5%;
       }
 
     `,
@@ -67,7 +68,7 @@ export class DialogEditVariableComponent {
   catName = this.data.name;
   catId = this.data.id
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private snackBar: MatSnackBar, private dataSrv: CategoryDataService, private _formbuilder: FormBuilder, private translate: TranslateService, public dialog: MtxDialog, public dialog1: MatDialog) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private snackBar: MatSnackBar, private scroller: ViewportScroller, private dataSrv: CategoryDataService, private _formbuilder: FormBuilder, private translate: TranslateService, public dialog: MtxDialog, public dialog1: MatDialog) {
   }
 
   async ngOnInit() {
@@ -166,7 +167,7 @@ export class DialogEditVariableComponent {
 
     let dialogRef = this.dialog1.open(DialogEditSelectComponent,
       {
-        width: '25%',
+        width: '35%',
         data: {id: id, catId: this.catId, name: name}
       }
     );
@@ -203,5 +204,8 @@ export class DialogEditVariableComponent {
       }
     }
   }
+
+  // Got to bottom of modal when a new input or select is add
+  //TODO: Got to bottom modal
 
 }

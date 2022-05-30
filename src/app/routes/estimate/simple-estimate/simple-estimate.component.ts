@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-
 import { MtxDialog } from '@ng-matero/extensions/dialog';
 import { MtxGridColumn } from '@ng-matero/extensions/grid';
-
 import { EstimateDataService } from '../data.service';
 import { TranslateService } from '@ngx-translate/core';
+import {DialogSeeDataComponent} from "./dialog-data-estimate.component";
+import {MatDialog} from "@angular/material/dialog";
+
 
 @Component({
   selector: 'app-estimate-simple-estimate',
@@ -50,6 +51,20 @@ export class EstimateSimpleEstimateComponent implements OnInit {
       field: 'product_category_id.name',
       sortable: true,
       minWidth: 120,
+    },
+    {
+      header: this.translate.stream('simple_estimate.data_user'),
+      field: 'data_user',
+      type: "button",
+      minWidth: 50,
+      buttons: [
+        {
+          color: 'primary',
+          icon: 'visibility',
+          tooltip: this.translate.stream('simple_estimate.see'),
+          click: record => this.seeVar(record),
+        },
+      ],
     },
     {
       header: this.translate.stream('simple_estimate.function'),
@@ -103,7 +118,7 @@ export class EstimateSimpleEstimateComponent implements OnInit {
   expandable = false;
   columnResizable = false;
 
-  constructor(private translate: TranslateService, private dataSrv: EstimateDataService, public dialog: MtxDialog) {
+  constructor(private translate: TranslateService, private dataSrv: EstimateDataService, public dialog: MtxDialog, public dialog1: MatDialog) {
 
   }
 
@@ -166,6 +181,20 @@ export class EstimateSimpleEstimateComponent implements OnInit {
     }
 
     this.loadData();
+  }
+
+  // Modal with data entry by user
+  seeVar(value: any){
+    let dialogRef = this.dialog1.open(DialogSeeDataComponent,
+      {
+        width: '50%',
+        data: { id: value._id, name: value.name }
+      }
+    );
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadData();
+    });
+
   }
 
   changeSelect(e: any) {

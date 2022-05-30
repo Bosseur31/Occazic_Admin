@@ -12,12 +12,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
         display: flex;
         align-items: baseline;
         justify-content: center;
-        margin-left: 30%;
       }
 
       .select_total{
         margin-top: 1.34375em;
-
       }
 
       .icon_add {
