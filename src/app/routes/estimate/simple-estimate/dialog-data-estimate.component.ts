@@ -1,13 +1,11 @@
-import {Component, ContentChild, Inject} from "@angular/core";
-import {EstimateDataService, Input} from "../data.service";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {Component, Inject} from "@angular/core";
+import {EstimateDataService, Data_tab} from "../data.service";
+import {FormBuilder} from "@angular/forms";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {TranslateService} from "@ngx-translate/core";
-import {MtxDialog} from "@ng-matero/extensions/dialog";
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {AfterViewInit, ViewChild} from '@angular/core';
-import {MatSort, Sort} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from "@angular/material/paginator";
 
@@ -34,8 +32,10 @@ export class DialogSeeDataComponent implements AfterViewInit {
   priceEstimName = this.data.name;
   priceEstimId = this.data.id
 
+  res: any;
+  dataTab: Data_tab[] = []
   dataSource: any;
-  displayedColumns: string[] = ['name', 'text', 'array', 'value'];
+  displayedColumns: string[] = ['name', 'array', 'name_array', 'text', 'value'];
 
   //TODO: Sort not working for string
   @ViewChild(MatSort) sort!: MatSort;
@@ -47,7 +47,6 @@ export class DialogSeeDataComponent implements AfterViewInit {
   async ngAfterViewInit(){
     await this.loadData()
 
-
     this.dataSource.sort = this.sort;
 
     this.dataSource.paginator = this.paginator;
@@ -57,11 +56,8 @@ export class DialogSeeDataComponent implements AfterViewInit {
     await this.dataSrv.getInputFuncDataWithPriceEstimId(this.priceEstimId)
       .toPromise()
       .then(res => {
-        this.dataSource = res;
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
         console.log('Get Variable for this category with success')
-        this.dataSource = new MatTableDataSource<Input>(res);
+        this.res = res;
         console.log(res)
       })
       .catch(err => {
@@ -70,9 +66,34 @@ export class DialogSeeDataComponent implements AfterViewInit {
       });
   }
 
+  // Load data for tab
   async loadData() {
+    // Call data with api
     await this.getInputFuncData();
-    console.log(this.dataSource)
+
+    // Sort and treatment data
+    for await (let data of this.res){
+      let name_array = '----'
+
+      if(!data.val_func_id.array){
+        data.val_func_id.array = 'Non';
+      }else{
+        data.val_func_id.array = 'Oui';
+        name_array = data.val_func_array_id.name
+      }
+
+      if(data.val_func_id.text){
+        data.val_func_id.text = 'Oui';
+      }else{
+        data.val_func_id.text = 'Non';
+      }
+
+      this.dataTab.push({name: data.val_func_id.name, name_array: name_array, array: data.val_func_id.array, text: data.val_func_id.text, value: data.value});
+    }
+
+    // Create Tab
+    this.dataSource = new MatTableDataSource<Data_tab>(this.dataTab);
+
   }
 
 

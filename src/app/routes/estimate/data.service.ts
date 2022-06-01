@@ -23,6 +23,10 @@ export interface Estim {
 
 export interface Input {
   price_estim_id: string;
+  val_func_array_id:[
+    _id: string,
+    name: string,
+  ]
   val_func_id: [
     _id: string,
     name: string,
@@ -30,6 +34,14 @@ export interface Input {
     text: boolean,
     category: string
   ]
+  value: string;
+}
+
+export interface Data_tab{
+  name: string;
+  name_array: string;
+  array: boolean;
+  text: boolean;
   value: string;
 }
 
