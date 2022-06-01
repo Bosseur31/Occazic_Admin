@@ -19,7 +19,6 @@
                     <mat-label>Nom de la variable :</mat-label>
                     <input matInput placeholder="Nom Variable" type="text" formControlName="name">
                   </mat-form-field>
-
                   <div class="icon_del">
                     <mat-icon role="img" class="mat-icon notranslate material-icons" color="warn" aria-hidden="true"
                               data-mat-icon-type="font" (click)="delVal(index)" matTooltip="Supprimer cette variable">
@@ -27,7 +26,6 @@
                     </mat-icon>
                   </div>
                 </ng-template>
-
                 <ng-template #selectBlock>
                   <mat-form-field class="var_select" appearance="fill">
                     <mat-label>{{variable.value.name}}</mat-label>
@@ -48,7 +46,7 @@
                   </div>
                   <div class="icon_edit">
                     <mat-icon role="img" class="mat-icon notranslate material-icons" color="primary" aria-hidden="true"
-                              data-mat-icon-type="font" (click)="editSelect(variable.value.id, variable.value.name)"
+                              data-mat-icon-type="font" (click)="editSelect(variable.value.id, variable.value.name, index)"
                               matTooltip="Modifier cette selection">
                       edit
                     </mat-icon>
@@ -69,7 +67,7 @@
                 data-mat-icon-type="font">add_circle_outline
       </mat-icon>
     </button>
-    <button mat-raised-button color="primary" type="submit" mat-dialog-close cdkFocusInitial>Submit</button>
+    <button [disabled]="EditForm.invalid" mat-raised-button color="primary" type="submit" mat-dialog-close cdkFocusInitial>Submit</button>
   </mat-dialog-actions>
 
   <mat-menu #add="matMenu">

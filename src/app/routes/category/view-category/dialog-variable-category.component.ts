@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {CategoryDataService, Val, Val_Array} from "../data.service";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {TranslateService} from "@ngx-translate/core";
 import {MtxDialog} from "@ng-matero/extensions/dialog";
@@ -79,10 +79,6 @@ export class DialogEditVariableComponent {
 
     await this.loadData()
 
-    // @ts-ignore
-    for (let valFunc of this.valFunc) {
-      this.variable.push(this.newVariable(valFunc.name, valFunc.array, valFunc.text, valFunc._id))
-    }
   }
 
   async getValFuncData() {
@@ -110,25 +106,59 @@ export class DialogEditVariableComponent {
       });
   }
 
-  //TODO: Reload name of select when this modify
+  // Load all data
   async loadData() {
+    let valFuncId = [];
     await this.getValFuncData();
     await this.getAllValFuncArrayData();
+
+    // If forms is empty
+    if (this.EditForm.value.variables.length === 0){
+      // @ts-ignore
+      for (let valFuncApi of this.valFunc){
+        this.variable.push(this.newVariable(valFuncApi.name, valFuncApi.array, valFuncApi.text, valFuncApi._id))
+      }
+    }
+    // If forms is not empty, add variable not present and patch to modify variable
+    else{
+      for (let valFuncForm of this.EditForm.value.variables) {
+        // @ts-ignore
+        for (let valFuncApi of this.valFunc){
+          if(valFuncForm.id === valFuncApi._id){
+            valFuncId.push(valFuncForm.id)
+            if(valFuncForm.name !== valFuncApi.name){
+              let index = this.EditForm.value.variables.indexOf(valFuncForm)
+              this.variable.at(index).patchValue({ name: valFuncApi.name })
+            }
+          }
+        }
+      }
+      // @ts-ignore
+      for(let valFuncApi of this.valFunc){
+        if(!valFuncId.includes(valFuncApi._id)){
+          this.variable.push(this.newVariable(valFuncApi.name, valFuncApi.array, valFuncApi.text, valFuncApi._id))
+        }
+      }
+    }
   }
 
+
+  // Recovery forms with all var
   get variable(): FormArray {
     return this.EditForm.get('variables') as FormArray;
   }
 
+  // Define setting of input.
   newVariable(name: string, array: boolean, text: boolean, id: string): FormGroup {
     return this._formbuilder.group({
-      name: name,
+      name: [name, Validators.required],
       array: array,
       text: text,
       id: id
     });
   }
 
+  // Delete var in forms
   removeVariable(Index: number) {
     this.variable.removeAt(Index);
   }
@@ -163,7 +193,7 @@ export class DialogEditVariableComponent {
     this.snackBar.open(`Variable ${valName} supprimé !`, '', {duration: 3000});
   }
 
-  editSelect(id: string, name: string) {
+  editSelect(id: string, name: string, index: number) {
 
     let dialogRef = this.dialog1.open(DialogEditSelectComponent,
       {
@@ -172,11 +202,17 @@ export class DialogEditVariableComponent {
       }
     );
     dialogRef.afterClosed().subscribe(result => {
+      // Delete ancient select
+      if(id == 'new'){
+        this.removeVariable(index)
+      }
+      // Load all data
       this.loadData();
     });
 
   }
 
+  // Add new input, setting define type of input
   addVal(array: boolean, text: boolean) {
     this.variable.push(this.newVariable('', array, text, 'new'))
   }
@@ -184,13 +220,13 @@ export class DialogEditVariableComponent {
   onSubmit() {
     for (let valFunc of this.EditForm.value.variables) {
       // If Val Fun is new, create new val Func else modify Val Func
-      if (valFunc.id === 'new') {
+      if (valFunc.id === 'new' && valFunc.name !== '') {
         this.dataSrv.postVal(valFunc.name, valFunc.array, valFunc.text, this.catId).toPromise()
           .then(data => {
             console.log('Create new variable input with success');
           })
           .catch(err => {
-            console.log('Not create variable input error : ' + err);
+            console.log('Not create variable input error : ' + err, valFunc, valFunc.name);
           });
       } else {
         this.dataSrv.putVal(valFunc.name, valFunc.id).toPromise()
@@ -205,7 +241,6 @@ export class DialogEditVariableComponent {
     }
   }
 
-  // Got to bottom of modal when a new input or select is add
-  //TODO: Got to bottom modal
+  //TODO: Got to bottom modal when a new input or select is add
 
 }
