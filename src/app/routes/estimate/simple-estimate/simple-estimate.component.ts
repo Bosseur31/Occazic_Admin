@@ -122,13 +122,13 @@ export class EstimateSimpleEstimateComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.loadData();
+  async ngOnInit() {
+    await this.loadData();
   }
 
-  loadData(){
+  async loadData(){
     this.isLoading = true;
-    this.dataSrv.getData()
+    await this.dataSrv.getData()
       .subscribe((data)=>{
         this.list = data;
         console.log(this.list)
@@ -136,10 +136,10 @@ export class EstimateSimpleEstimateComponent implements OnInit {
       });
   }
 
-  delete(value: any) {
+  async delete(value: any) {
 
     try {
-      this.dataSrv.delData(value._id)
+      await this.dataSrv.delData(value._id)
         .subscribe({
           next: data => {
             this.dialog.alert(`Vous avez supprimé ${value._id}!`);
@@ -149,11 +149,11 @@ export class EstimateSimpleEstimateComponent implements OnInit {
           }
         });
     } catch {
-      console.log('Data eimate not Found')
+      console.log('Data estimate not Found')
     }
 
     try {
-      this.dataSrv.delCalcul(value.calcul_id._id)
+      await this.dataSrv.delCalcul(value.calcul_id._id)
         .subscribe({
           next: data => {
             this.dialog.alert(`Tout les calculs de ${value._id}, ont été supprimé !`);
@@ -167,7 +167,7 @@ export class EstimateSimpleEstimateComponent implements OnInit {
     }
 
     try {
-      this.dataSrv.delInput(value._id)
+      await this.dataSrv.delInput(value._id)
         .subscribe({
           next: data => {
             this.dialog.alert(`Toute les valeurs enregistrées de ${value._id}, ont été supprimé !`);
@@ -180,7 +180,7 @@ export class EstimateSimpleEstimateComponent implements OnInit {
       console.log('Data Input not Found')
     }
 
-    this.loadData();
+    await this.loadData();
   }
 
   // Modal with data entry by user
