@@ -29,7 +29,7 @@ export class LoginService {
   }
 
   me(user_id: string) {
-    return this.http.get<User>(environment.apiURL + '/user/' + user_id, {headers: this.headers});
+    return this.http.get<User>(environment.apiURL + '/user/' + user_id, {headers: new HttpHeaders({'Authorization':this._token.getBearerToken()})});
   }
 
   menu() {
